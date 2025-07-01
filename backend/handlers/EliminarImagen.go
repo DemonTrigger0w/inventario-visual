@@ -32,9 +32,9 @@ func EliminarImagen(c *gin.Context) {
 	}
 
 	os.Remove(ImagenEliminar.Ruta)
-	db.Delete(&result)
+	db.Delete(&ImagenEliminar)
 
 	c.JSON(200, gin.H{
-		"succes": true,
+		"success": true,
 	})
 }
