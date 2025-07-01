@@ -25,6 +25,7 @@ func ActualizarImagen(c *gin.Context) {
 		c.JSON(400, gin.H{
 			"error": "error al obtener el id",
 		})
+		return
 	}
 
 	uploadDir := "./uploads/" + img.Filename
