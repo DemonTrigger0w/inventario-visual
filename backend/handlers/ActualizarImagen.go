@@ -50,5 +50,4 @@ func ActualizarImagen(c *gin.Context) {
 	c.JSON(400, gin.H{
 		"success": true,
 	})
-	return
 }

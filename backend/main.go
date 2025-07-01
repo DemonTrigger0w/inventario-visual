@@ -20,11 +20,11 @@ func main() {
 	config.AllowAllOrigins = true
 
 	router.GET("/ObtenerImagen", handlers.ObtenerImagen)
-	router.GET("/register", handlers.HandlerRegistro)
+	router.GET("/Register", handlers.HandlerRegistro)
 	router.DELETE("/EliminarImagen", handlers.EliminarImagen)
 	router.POST("/ActualizarImagen", handlers.ActualizarImagen)
-	router.POST("/imagen", handlers.EnviarImagen)
-	router.POST("/login", handlers.HandlerLogin)
+	router.POST("/EnviarImagen", handlers.EnviarImagen)
+	router.POST("/Login", handlers.HandlerLogin)
 
 	router.Run()
 }
