@@ -62,11 +62,5 @@ table{
   border: 2px solid gray;
   border-radius: 2px;
   box-shadow: 0 0 5px rgb(180, 176, 176);
-
 }
 
-input[type="checkbox"]{
-  background: green;
-  border-radius: 5px;
-
-}

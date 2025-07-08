@@ -10,7 +10,8 @@ import (
 
 func EnviarImagen(c *gin.Context) {
 	idUser := c.Request.FormValue("userId")
-	tipoElemento := c.Request.FormValue("elemento")
+	activo := c.Request.FormValue("activo")
+	Estado := c.Request.FormValue("estado")
 	img, err := c.FormFile("img")
 
 	if err != nil {
@@ -38,10 +39,11 @@ func EnviarImagen(c *gin.Context) {
 	}
 
 	image := models.Imagen{
-		IdUser:       id,
-		Nombre:       img.Filename,
-		Ruta:         uploadDir,
-		TipoElemento: tipoElemento,
+		IdUser: id,
+		Nombre: img.Filename,
+		Ruta:   uploadDir,
+		Activo: activo,
+		Estado: Estado,
 	}
 
 	db := database.GetDB()

@@ -9,7 +9,7 @@ import (
 )
 
 func ActualizarImagen(c *gin.Context) {
-	tipoelemento := c.Request.FormValue("elemento")
+	activo := c.Request.FormValue("activo")
 	iduser := c.Request.FormValue("userid")
 	img, err := c.FormFile("img")
 
@@ -39,10 +39,10 @@ func ActualizarImagen(c *gin.Context) {
 
 	db := database.GetDB()
 	Img := models.Imagen{
-		IdUser:       id,
-		Nombre:       img.Filename,
-		Ruta:         uploadDir,
-		TipoElemento: tipoelemento,
+		IdUser: id,
+		Nombre: img.Filename,
+		Ruta:   uploadDir,
+		Activo: activo,
 	}
 
 	db.Updates(&Img)
