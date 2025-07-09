@@ -19,12 +19,9 @@ func main() {
 	router.Use(cors.Default())
 	config.AllowAllOrigins = true
 
-	router.GET("/ObtenerImagen", handlers.ObtenerImagen)
-	router.GET("/Register", handlers.HandlerRegistro)
+	router.GET("/ObtenerImagen", handlers.ObtenerImagenes)
 	router.DELETE("/EliminarImagen", handlers.EliminarImagen)
-	router.POST("/ActualizarImagen", handlers.ActualizarImagen)
 	router.POST("/EnviarImagen", handlers.EnviarImagen)
-	router.POST("/Login", handlers.HandlerLogin)
 
 	router.Run()
 }

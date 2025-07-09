@@ -3,25 +3,16 @@ package handlers
 import (
 	"Inventario_Visual/database"
 	"Inventario_Visual/models"
-	"strconv"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-func ObtenerImagen(c *gin.Context) {
-	idUser := c.Request.FormValue("userId")
-
-	id, err := strconv.Atoi(idUser)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "Ha ocurrido un error obteniendo el ID del usuario",
-		})
-		return
-	}
-
+func ObtenerImagenes(c *gin.Context) {
 	db := database.GetDB()
-	var img models.Imagen
-	result := db.First(&img, id)
+
+	var img []models.Imagen
+	result := db.Find(&img)
 
 	if result.Error != nil {
 		c.JSON(400, gin.H{
@@ -30,6 +21,5 @@ func ObtenerImagen(c *gin.Context) {
 		return
 	}
 
-	c.File(img.Ruta)
-
+	c.JSON(http.StatusOK, img)
 }

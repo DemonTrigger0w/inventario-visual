@@ -3,17 +3,18 @@ package handlers
 import (
 	"Inventario_Visual/database"
 	"Inventario_Visual/models"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
 func EnviarImagen(c *gin.Context) {
-	idUser := c.Request.FormValue("userId")
-	activo := c.Request.FormValue("activo")
-	Estado := c.Request.FormValue("estado")
-	img, err := c.FormFile("img")
+	nombre := c.Request.FormValue("nombre")
+	estado := c.Request.FormValue("estado")
+	activoString := c.Request.FormValue("activo")
 
+	activo := activoString == "true"
+
+	img, err := c.FormFile("img")
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "Ha ocurrido un error obteniendo la imagen",
@@ -21,29 +22,15 @@ func EnviarImagen(c *gin.Context) {
 		return
 	}
 
-	id, err := strconv.Atoi(idUser)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "Ha ocurrido un error obteniendo el ID del usuario",
-		})
-		return
-	}
+	uploadir := "/uploads/" + img.Filename
 
-	uploadDir := "./uploads/" + img.Filename
-	err = c.SaveUploadedFile(img, uploadDir)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "Error al guardar la imagen: " + err.Error(),
-		})
-		return
-	}
+	c.SaveUploadedFile(img, "."+uploadir)
 
 	image := models.Imagen{
-		IdUser: id,
-		Nombre: img.Filename,
-		Ruta:   uploadDir,
+		Nombre: nombre,
+		Ruta:   uploadir,
 		Activo: activo,
-		Estado: Estado,
+		Estado: estado,
 	}
 
 	db := database.GetDB()
