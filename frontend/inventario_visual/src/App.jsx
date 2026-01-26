@@ -46,7 +46,7 @@ function App() {
         body: form
       };
 
-      const req = await fetch('http://localhost:8080/EliminarImagen',  data);
+      const req = await fetch('http://localhost:8080/EliminarImagen', data);
       const res = await req.json();
       
       if (res?.error) {
@@ -57,6 +57,32 @@ function App() {
       console.log(e);
       alert(e);
 
+    }
+  }
+
+  // Nuevo: eliminar por id
+  const EliminarImagenPorId = async (id) => {
+    try{
+      const form = new FormData();
+      form.append("id", id);
+
+      const data = {
+        method: "DELETE",
+        body: form
+      };
+
+      const req = await fetch('http://localhost:8080/EliminarImagen', data);
+      const res = await req.json();
+
+      if (res?.error) {
+        throw new Error(res.error);
+      }
+
+      await obtenerTodosLosActivos();
+
+    } catch (e) {
+      console.log(e);
+      alert(e);
     }
   }
 
@@ -130,7 +156,7 @@ function App() {
         <tbody>
           {
             items.map(item => (
-              <tr>
+              <tr key={item.ID}>
                 <td>{ item.ID }</td>
                 <td>{ item.Nombre }</td>
                 <td>{ item.Estado }</td>
@@ -138,7 +164,7 @@ function App() {
                   fontWeight: 'bolder',
                   color: item.Activo ? 'green' : 'red' }}>{ item.Activo ? 'OPERATIVO' : 'INACTIVO' }</td>
                 <td><img src={ "http://localhost:8080" + item.Ruta } alt="" height={80} /></td>
-                <td><input type="button" value="eliminar" onClick={ async () => await EliminarImagen()}/></td>
+                <td><input type="button" value="eliminar" onClick={ async () => await EliminarImagenPorId(item.ID)}/></td>
               </tr>
             ))
           }
