@@ -48,7 +48,7 @@ function App() {
 
       const req = await fetch('http://localhost:8080/EliminarImagen', data);
       const res = await req.json();
-      
+
       if (res?.error) {
         throw new Error(res.error);
       }
@@ -60,7 +60,6 @@ function App() {
     }
   }
 
-  // Nuevo: eliminar por id
   const EliminarImagenPorId = async (id) => {
     try{
       const form = new FormData();
