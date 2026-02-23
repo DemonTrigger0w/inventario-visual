@@ -23,6 +23,7 @@ func main() {
 	router.GET("/ObtenerImagenes", handlers.ObtenerImagenes)
 	router.DELETE("/EliminarImagen", handlers.EliminarImagen)
 	router.POST("/EnviarImagen", handlers.EnviarImagen)
+	router.GET("/CrearUsuario", handlers.CrearUsuario)
 
 	router.Run()
 }
