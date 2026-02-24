@@ -1,14 +1,16 @@
 import { useState } from "react";
 import "./style/Register.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Register() {
   const [DataLogin, setDataLogin] = useState({
     usuario: "",
     contraseña: "",
   });
 
-  const CrearUsuario = async () => {
+  const navigate = useNavigate();
+
+  const RegisterUser = async () => {
     try {
       const form = new FormData();
       form.append("usuario", DataLogin.usuario);
@@ -19,14 +21,14 @@ function Login() {
         body: form,
       };
 
-      const res = await fetch("http://localhost:8080/CrearUsuario", data);
+      const res = await fetch("http://localhost:8080/RegistrarUsuario", data);
       const req = await res.json();
 
-      if (req.status === 200) {
-        console.log("Usuario creado exitosamente");
-      } else {
-        console.error("Error al crear el usuario");
+      if (req.error){
+        throw new Error(req.error);
       }
+
+      navigate("/");
       
     } catch (error) {
       console.error(error);
@@ -43,14 +45,14 @@ function Login() {
         </div>
         <div className="contraseña">
           <h2>Contraseña</h2>
-          <input type="password" placeholder="Contraseña" />
+          <input onChange={(e) => setDataLogin({...DataLogin, contraseña: e.target.value})} type="password" placeholder="Contraseña" />
         </div>
-        <input type="button" value="registrase" onClick={CrearUsuario} />
+        <input type="button" value="registrese" onClick={RegisterUser} />
         <div className="register">
-            <p>no tienes cuenta <Link to="/login">registrate aqui</Link></p>
         </div>
       </div>
     </>
   );
 }
-export default Login;
+
+export default Register;

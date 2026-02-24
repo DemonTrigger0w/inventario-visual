@@ -1,19 +1,15 @@
 package utils
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
+	"golang.org/x/crypto/bcrypt"
 )
 
-func CompararClave(clave string, claveEncriptada string) bool {
-	comparacion := EncriptarClave(clave)
-	return comparacion == claveEncriptada
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
 }
 
-func EncriptarClave(clave string) string {
-	hash := sha256.New()
-	hash.Write([]byte(clave))
-	valorHash := hex.EncodeToString(hash.Sum(nil))
-
-	return valorHash
+func CheckPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }

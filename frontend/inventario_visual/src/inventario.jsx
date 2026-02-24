@@ -17,10 +17,12 @@ function App() {
 
   }, []);
 
+  let path = "http://localhost:8080/"
+
   const obtenerTodosLosActivos = async () => {
     try {
 
-      const req = await fetch('http://localhost:8080/ObtenerImagenes');
+      const req = await fetch(path + 'ObtenerImagenes');
       const res = await req.json();
       console.log(res)
 
@@ -46,7 +48,7 @@ function App() {
         body: form
       };
 
-      const req = await fetch('http://localhost:8080/EliminarImagen', data);
+      const req = await fetch(path + 'EliminarImagen', data);
       const res = await req.json();
 
       if (res?.error) {
@@ -75,7 +77,7 @@ function App() {
         body: form
       };
 
-      const req = await fetch("http://localhost:8080/EnviarImagen", data);
+      const req = await fetch(path + 'EnviarImagen', data);
       const res = await req.json();
 
       if (res?.error) {
