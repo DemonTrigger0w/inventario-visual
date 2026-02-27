@@ -14,7 +14,7 @@ func EliminarImagen(c *gin.Context) {
 	db := database.GetDB()
 	var ImagenEliminar models.Imagen
 
-	os.Remove(ImagenEliminar.Ruta)
+	os.Remove("./uploads/" + ImagenEliminar.Nombre)
 	db.Where("id = " + id).Delete(&ImagenEliminar)
 
 	c.JSON(200, gin.H{

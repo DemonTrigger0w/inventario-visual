@@ -10,11 +10,11 @@ import (
 
 func LoginUser(c *gin.Context) {
 	db := database.GetDB()
-	Usuario := c.Request.FormValue("usuario")
-	Contraseña := c.Request.FormValue("contraseña")
+	DNI := c.Request.FormValue("DNI")
+	Contraseña := c.Request.FormValue("password")
 
 	var user models.User
-	db.Where("username = ?", Usuario).First(&user)
+	db.Where("DNI = ?", DNI).First(&user)
 
 	if user.ID == 0 {
 		c.JSON(400, gin.H{"error": "Usuario no encontrado"})

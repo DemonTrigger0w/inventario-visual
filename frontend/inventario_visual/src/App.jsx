@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route  } from "react-router-dom";
-import Inventario from "./inventario.jsx";
+import Inventario from "./inventario_old.jsx";
 import Login from "./Login.jsx";
 import Register from "./register.jsx";
 import CrearActivo from "./CrearActivo.jsx";
