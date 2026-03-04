@@ -1,8 +1,10 @@
-# actualizacion v2.1
+# actualizacion v0.0.1 (alpha) 
 
-- se agrego el hash a la contraseña del usuario
-- se corrigieron algunas rutas en el main.go
-- se actualizo la migracion de la base de datos
+- cree nuevas tablas para la nueva estructura de la base de datos
+- se hicieron algunas modificaciones a algunos handlers
+
+> ahora todo el proyecto se a convertido en un alpha, ya que las nueva estructura del proyecto es muy diferente a la antigua.
+
 
 # ejecucion 
 
@@ -42,6 +44,5 @@ esto instalara todas las dependencias ademas que tambien ejecutara el proyecto
 
 ## pasos a futuro:
 
-- crear un sistema de hash para el registro de usuario
 - incorporar un sistema de busqueda en el inventario
 - mejorar el estilo css

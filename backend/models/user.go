@@ -10,5 +10,5 @@ type User struct {
 	Firstname string
 	Lastname  string
 	Password  string
-	Area_ID   int
+	Area_ID   uint
 }

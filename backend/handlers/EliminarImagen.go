@@ -14,7 +14,13 @@ func EliminarImagen(c *gin.Context) {
 	db := database.GetDB()
 	var ImagenEliminar models.Imagen
 
-	os.Remove("./uploads/" + ImagenEliminar.Nombre)
+	err := os.Remove("./uploads/" + ImagenEliminar.Nombre)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "error al borrar la imagen",
+		})
+	}
+
 	db.Where("id = " + id).Delete(&ImagenEliminar)
 
 	c.JSON(200, gin.H{

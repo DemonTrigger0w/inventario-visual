@@ -7,4 +7,5 @@ type Provider struct {
 	Serial string
 	Brane  string
 	Color  string
+	Assets []Asset
 }

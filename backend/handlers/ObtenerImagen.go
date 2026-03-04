@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ObtenerImagenes(c *gin.Context) {
+/* func ObtenerImagenes(c *gin.Context) {
 	db := database.GetDB()
 
 	var img []models.Imagen
@@ -22,4 +22,22 @@ func ObtenerImagenes(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, img)
+}
+
+*/
+
+func ObtenerImagenes(c *gin.Context) {
+	db := database.GetDB()
+
+	var Asset []models.Asset
+	result := db.Find(&Asset)
+
+	if result.Error != nil {
+		c.JSON(400, gin.H{
+			"error": "activo no encontrado",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, Asset)
 }

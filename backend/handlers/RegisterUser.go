@@ -14,7 +14,7 @@ func RegisterUser(c *gin.Context) {
 	DNI := c.Request.FormValue("DNI")
 	Firstname := c.Request.FormValue("firstname")
 	Lastname := c.Request.FormValue("lastname")
-	contraseña := c.Request.FormValue("password")
+	Contraseña := c.Request.FormValue("password")
 	Area := c.Request.FormValue("area")
 
 	DNI_int, err := strconv.Atoi(DNI)
@@ -23,13 +23,7 @@ func RegisterUser(c *gin.Context) {
 		return
 	}
 
-	area_int, err := strconv.Atoi(Area)
-	if err != nil {
-		c.JSON(400, gin.H{"error": "Error al obtener el area "})
-		return
-	}
-
-	password_hash, err := utils.HashPassword(contraseña)
+	password_hash, err := utils.HashPassword(Contraseña)
 	if err != nil {
 		c.JSON(400, gin.H{"error": "Error al encriptar la contraseña"})
 		return
@@ -40,10 +34,15 @@ func RegisterUser(c *gin.Context) {
 		Firstname: Firstname,
 		Lastname:  Lastname,
 		Password:  password_hash,
-		Area_ID:   area_int,
 	}
+
+	AreaDB := models.Area{
+		Name: Area,
+	}
+
+	db.Create(&User)
+	db.Create(&AreaDB)
 
 	c.JSON(200, gin.H{"success": "usuario registrado exitosamente"})
 
-	db.Create(&User)
 }
