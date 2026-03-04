@@ -1,7 +1,7 @@
-# actualizacion v0.0.1 (alpha) 
+# actualizacion v0.0.2 (alpha) 
 
-- cree nuevas tablas para la nueva estructura de la base de datos
-- se hicieron algunas modificaciones a algunos handlers
+- modificaion en la migracion de la base de datos (antes surgia un error al migrar la base de datos)
+- se corrigieron algunos errores en el frontend
 
 > ahora todo el proyecto se a convertido en un alpha, ya que las nueva estructura del proyecto es muy diferente a la antigua.
 

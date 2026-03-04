@@ -19,10 +19,11 @@ func main() {
 
 	router.Static("/uploads", "./uploads")
 	router.GET("/ObtenerImagenes", handlers.ObtenerImagenes)
-	router.DELETE("/EliminarImagen", handlers.EliminarImagen)
+	router.DELETE("/EliminarAsset", handlers.EliminarAsset)
 	router.POST("/EnviarImagen", handlers.EnviarImagen)
 	router.POST("/RegistrarUsuario", handlers.RegisterUser)
 	router.POST("/Iniciarsesion", handlers.LoginUser)
+	router.POST("/Guardarinventario", handlers.Guardarinventario)
 
 	router.Run()
 }

@@ -40,8 +40,7 @@ func RegisterUser(c *gin.Context) {
 		Name: Area,
 	}
 
-	db.Create(&User)
-	db.Create(&AreaDB)
+	db.Create(&User).Create(&AreaDB)
 
 	c.JSON(200, gin.H{"success": "usuario registrado exitosamente"})
 

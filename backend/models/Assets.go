@@ -4,9 +4,10 @@ import "gorm.io/gorm"
 
 type Asset struct {
 	gorm.Model
-	Description string
-	Status      uint
-	Providers   uint
+	Name        string
 	Image       string
-	Areas       uint
+	Description string
+	AreaID      uint
+	StatusID    uint
+	ProviderID  uint
 }

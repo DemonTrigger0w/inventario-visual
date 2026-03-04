@@ -5,7 +5,8 @@ import "gorm.io/gorm"
 type Provider struct {
 	gorm.Model
 	Serial string
-	Brane  string
+	Brand  string
+	Models string
 	Color  string
 	Assets []Asset
 }

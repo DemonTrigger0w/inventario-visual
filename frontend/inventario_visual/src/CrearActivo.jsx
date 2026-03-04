@@ -50,12 +50,12 @@ function CrearActivo() {
         <div className="container">
             <div className="nombre-serial">
                 <div className="nombre">
-                    <h2>serial 1</h2>
-                    <input type="text" placeholder="nombre" onChange={(e) => setdata({ ...data, serial1: e.target.value })} />
+                    <h2>nombre</h2>
+                    <input type="text" placeholder="nombre" onChange={(e) => setdata({ ...data, nombre: e.target.value })} />
                 </div>
                 <div className="seria">
                     <h2>serial 2</h2>
-                    <input type="text" placeholder="serial" onChange={(e) => setdata({ ...data, serial2: e.target.value })} />
+                    <input type="text" placeholder="serial" onChange={(e) => setdata({ ...data, serial: e.target.value })} />
                 </div>
             </div>
             <div className="modelo-marca">

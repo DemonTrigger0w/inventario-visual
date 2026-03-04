@@ -7,11 +7,17 @@ import (
 )
 
 func MigrarDB(db *gorm.DB) {
-	db.AutoMigrate(&models.Imagen{})
-	db.AutoMigrate(&models.User{})
-	db.AutoMigrate(&models.Status{})
-	db.AutoMigrate(&models.Area{})
-	db.AutoMigrate(&models.Provider{})
-	db.AutoMigrate(&models.Asset{})
+	err := db.AutoMigrate(
+		&models.Asset{},
+		&models.Area{},
+		&models.Status{},
+		&models.Provider{},
+		&models.User{},
+		&models.Imagen{},
+	)
+
+	if err != nil {
+		panic("Ha ocurrido un error al migrar la base de datos")
+	}
 
 }

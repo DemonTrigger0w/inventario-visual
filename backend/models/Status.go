@@ -4,6 +4,6 @@ import "gorm.io/gorm"
 
 type Status struct {
 	gorm.Model
-	name   string
+	Name   string
 	Assets []Asset
 }

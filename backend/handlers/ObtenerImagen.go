@@ -3,7 +3,7 @@ package handlers
 import (
 	"Inventario_Visual/database"
 	"Inventario_Visual/models"
-	"net/http"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
@@ -29,15 +29,17 @@ import (
 func ObtenerImagenes(c *gin.Context) {
 	db := database.GetDB()
 
-	var Asset []models.Asset
-	result := db.Find(&Asset)
+	var Asset models.Asset
 
-	if result.Error != nil {
+	asset := db.Preload("Provider").Preload("provider.Brand").Preload("provider.Models").Preload("provider.Serial").Find(&Asset)
+	if asset.Error != nil {
 		c.JSON(400, gin.H{
-			"error": "activo no encontrado",
+			"error": "Activos no encontrados",
 		})
 		return
 	}
 
-	c.JSON(http.StatusOK, Asset)
+	fmt.Println(Asset)
+
+	// c.JSON(http.StatusOK, Asset)
 }

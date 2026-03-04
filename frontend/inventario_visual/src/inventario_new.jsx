@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./inventario.css";
+import "./style/inventario_new.css";
 
 function inventario_cuerpo() {
 
@@ -7,16 +7,16 @@ function inventario_cuerpo() {
 
     let path = "http://localhost:8080/"
 
-    useEffect( () => {
+    useEffect(() => {
 
         ObtenerTodosLosActivos();
 
     }, []);
-    
+
     const ObtenerTodosLosActivos = async () => {
         try {
 
-            const req = await fetch("ObtenerTodosLosActivos");
+            const req = await fetch(path + "ObtenerTodosLosActivos");
             const res = await req.json();
 
             if (res?.error) {
@@ -41,7 +41,7 @@ function inventario_cuerpo() {
                 body: form
             };
 
-            const req = await fetch(path + "EliminarActivo", data)
+            const req = await fetch(path + "EliminarAsset", data)
             const res = await req.json();
 
             if (res?.error) {
@@ -58,38 +58,31 @@ function inventario_cuerpo() {
 
     return (
         <>
-        <div className="container">
-            <table>
-                <thead>
-                    <tr>
-                        <td>nombre</td>
-                        <td>serial</td>
-                        <td>modelo</td>
-                        <td>marca</td>
-                        <td>estado</td>
-                        <td>color</td>
-                        <td>descripcion</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                    Activos.map(item => (
-                        <tr key={item.ID}>
-                            <td>{ item.ID }</td>
-                            <td>{ item.nombre }</td>
-                            <td>{ item.serial }</td>
-                            <td>{ item.modelo }</td>
-                            <td>{ item.marca }</td>
-                            <td>{ item.estado }</td>
-                            <td>{ item.color }</td>
-                            <td>{ item.descripcion }</td>
-                            <td><input type="button" value="Eliminar" onClick={() => EliminarActivo(item.ID)} /></td>
+            <div className="container">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>nombre</td>
+                            <td>serial</td>
+                            <td>modelo</td>
+                            <td>marca</td>
                         </tr>
-                    ))
-                }
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {
+                            Activos.map(item => (
+                                <tr key={item.ID}>
+                                    <td>{item.nombre}</td>
+                                    <td>{item.modelo}</td>
+                                    <td>{item.marca}</td>
+                                    <td>{item.serial}</td>
+                                    <td><input type="button" value="Eliminar" onClick={() => EliminarActivo(item.ID)} /></td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
         </>
     )
 }
