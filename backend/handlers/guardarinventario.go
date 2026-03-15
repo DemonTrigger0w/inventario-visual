@@ -17,9 +17,14 @@ func Guardarinventario(c *gin.Context) {
 	color := c.Request.FormValue("color")
 	descripcion := c.Request.FormValue("descripcion")
 
-	Asset := models.Asset{
-		Name:        nombre,
-		Description: descripcion,
+	status := models.Status{
+		Name: estado,
+	}
+
+	err := db.Create(&status).Error
+	if err != nil {
+		c.JSON(500, gin.H{"error": "activo no guardado"})
+		return
 	}
 
 	provider := models.Provider{
@@ -29,10 +34,25 @@ func Guardarinventario(c *gin.Context) {
 		Color:  color,
 	}
 
-	status := models.Status{
-		Name: estado,
+	err = db.Create(&provider).Error
+	if err != nil {
+		c.JSON(500, gin.H{"error": "activo no guardado"})
+		return
 	}
 
-	db.Create(&Asset).Create(&provider).Create(&status)
+	Asset := models.Asset{
+		Name:        nombre,
+		Description: descripcion,
+		StatusID:    status.ID,
+		ProviderID:  provider.ID,
+	}
+
+	err = db.Create(&Asset).Error
+	if err != nil {
+		c.JSON(500, gin.H{"error": "activo no guardado"})
+		return
+	}
+
+	c.JSON(200, gin.H{"success": "activo guardado exitosamente"})
 
 }

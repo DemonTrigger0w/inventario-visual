@@ -16,14 +16,14 @@ function inventario_cuerpo() {
     const ObtenerTodosLosActivos = async () => {
         try {
 
-            const req = await fetch(path + "ObtenerTodosLosActivos");
+            const req = await fetch(path + "ObtenerImagenes");
             const res = await req.json();
 
             if (res?.error) {
                 throw new Error(res.error);
             }
 
-            setActivos(res.reverse());
+
 
         } catch (e) {
             console.log(e);
