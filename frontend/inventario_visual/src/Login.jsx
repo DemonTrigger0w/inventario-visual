@@ -4,17 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [DataLogin, setDataLogin] = useState({
-    usuario: "",
-    contraseña: "",
+    DNI: "",
+    password: "",
   });
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const LoginUser = async () => {
     try {
       const form = new FormData();
-      form.append("usuario", DataLogin.usuario);
-      form.append("contraseña", DataLogin.contraseña);
+      form.append("DNI", DataLogin.DNI);
+      form.append("password", DataLogin.password);
 
       const data = {
         method: "POST",
@@ -24,12 +24,12 @@ function Login() {
       const res = await fetch("http://localhost:8080/Iniciarsesion", data);
       const req = await res.json();
 
-      if (req.error){
+      if (req.error) {
         throw new Error(req.error);
       }
 
-      localStorage.setItem(DataLogin.usuario + "Token", req.token)
-      navigate("/inventario");
+      localStorage.setItem(DataLogin.DNI + "Token", req.token)
+      navigate("/inventario_new");
 
 
 
@@ -44,15 +44,15 @@ function Login() {
         <h1>Login</h1>
         <div className="usuario">
           <h2>Usuario</h2>
-          <input onChange={(e) => setDataLogin({...DataLogin, usuario: e.target.value})} type="text" placeholder="Usuario" />
+          <input onChange={(e) => setDataLogin({ ...DataLogin, DNI: e.target.value })} type="text" placeholder="DNI" />
         </div>
         <div className="contraseña">
           <h2>Contraseña</h2>
-          <input onChange={(e) => setDataLogin({...DataLogin, contraseña: e.target.value})} type="password" placeholder="Contraseña"  />
+          <input onChange={(e) => setDataLogin({ ...DataLogin, password: e.target.value })} type="password" placeholder="Contraseña" />
         </div>
         <input type="button" value="Login" onClick={LoginUser} />
         <div className="register">
-            <p>no tienes cuenta <Link to="/register">registrate aqui</Link></p>
+          <p>no tienes cuenta <Link to="/register">registrate aqui</Link></p>
         </div>
       </div>
     </>

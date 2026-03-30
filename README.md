@@ -1,7 +1,13 @@
-# actualizacion v0.0.2 (alpha) 
+# actualizacion v0.0.3 (alpha) 
 
-- modificaion en la migracion de la base de datos (antes surgia un error al migrar la base de datos)
-- se corrigieron algunos errores en el frontend
+- se corrigieron errore en el css 
+- se optimizo el guardado de activos
+- modificaciones en el registro, login y inventario_new
+
+## errores conocidos
+
+- la ruta de obtener imagenes no funciona correctamente
+
 
 > ahora todo el proyecto se a convertido en un alpha, ya que las nueva estructura del proyecto es muy diferente a la antigua.
 

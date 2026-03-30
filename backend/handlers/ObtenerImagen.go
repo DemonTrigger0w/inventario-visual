@@ -11,15 +11,15 @@ import (
 func ObtenerImagenes(c *gin.Context) {
 	db := database.GetDB()
 
-	var Asset models.Asset
+	var assets []models.Asset
 
-	asset := db.Find(&Asset).Preload("ProviderID")
-	if asset.Error != nil {
+	result := db.Preload("Provider").Preload("Status").Preload("Area").Find(&assets)
+	if result.Error != nil {
 		c.JSON(400, gin.H{
 			"error": "Activos no encontrados",
 		})
 		return
 	}
 
-	c.JSON(http.StatusOK, Asset)
+	c.JSON(http.StatusOK, assets)
 }

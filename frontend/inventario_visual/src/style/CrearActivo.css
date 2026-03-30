@@ -23,7 +23,6 @@ input[type="text"] {
     padding: 1rem;
     border: 2px solid grey;
     border-radius: 5px;
-    margin: 20px;
 }
 
 input[type="button"] {
@@ -31,6 +30,5 @@ input[type="button"] {
     background: rgb(175, 180, 175);
     border: 2px;
     border-radius: 5px;
-    margin: 20px;
     cursor: pointer;
 }

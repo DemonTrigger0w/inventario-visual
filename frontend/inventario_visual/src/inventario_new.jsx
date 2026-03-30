@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style/inventario_new.css";
 
 function inventario_cuerpo() {
+
+    const navigate = useNavigate();
 
     const [Activos, setActivos] = useState([]);
 
@@ -82,6 +85,9 @@ function inventario_cuerpo() {
                         }
                     </tbody>
                 </table>
+            </div>
+            <div>
+                <input type="button" value="Agregar Activo" onClick={() => navigate("/CrearActivo")} />
             </div>
         </>
     )

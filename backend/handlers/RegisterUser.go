@@ -29,18 +29,19 @@ func RegisterUser(c *gin.Context) {
 		return
 	}
 
+	AreaDB := models.Area{
+		Name: Area,
+	}
+	db.Create(&AreaDB)
+
 	User := models.User{
 		DNI:       DNI_int,
 		Firstname: Firstname,
 		Lastname:  Lastname,
 		Password:  password_hash,
+		AreaID:    AreaDB.ID,
 	}
-
-	AreaDB := models.Area{
-		Name: Area,
-	}
-
-	db.Create(&User).Create(&AreaDB)
+	db.Create(&User)
 
 	c.JSON(200, gin.H{"success": "usuario registrado exitosamente"})
 

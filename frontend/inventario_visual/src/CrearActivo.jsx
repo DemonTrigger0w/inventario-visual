@@ -1,8 +1,10 @@
 import { useState } from "react";
-import "./style/sistema.css";
+import { useNavigate } from "react-router-dom";
+import "./style/CrearActivo.css";
 
 
 function CrearActivo() {
+    const navigate = useNavigate();
     const [Activo, setActivo] = useState({
         nombre: "",
         serial: "",
@@ -37,6 +39,8 @@ function CrearActivo() {
             if (res?.error) {
                 throw new Error(res.error);
             }
+
+            navigate("/inventario_new");
 
         } catch (e) {
             console.log(e);

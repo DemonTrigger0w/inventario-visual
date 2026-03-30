@@ -8,6 +8,9 @@ type Asset struct {
 	Image       string
 	Description string
 	AreaID      uint
+	Area        Area
 	StatusID    uint
+	Status      Status
 	ProviderID  uint
+	Provider    Provider
 }
