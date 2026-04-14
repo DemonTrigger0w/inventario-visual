@@ -4,9 +4,10 @@ import "gorm.io/gorm"
 
 type Provider struct {
 	gorm.Model
-	Serial string
-	Brand  string
-	Models string
-	Color  string
-	Assets []Asset
+	Serial   string  `json:"Serial"`
+	Brand    string  `json:"Brand"`
+	Models   string  `json:"Models"`
+	Color    string  `json:"Color"`
+	AssetsID uint    `json:"assets_id"`
+	Assets   []Asset `json:"assets"`
 }

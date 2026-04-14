@@ -5,20 +5,22 @@ import { Link, useNavigate } from "react-router-dom";
 function Login() {
   const [DataLogin, setDataLogin] = useState({
     DNI: "",
-    password: "",
+    Password: "",
   });
 
   const navigate = useNavigate();
 
   const LoginUser = async () => {
     try {
-      const form = new FormData();
-      form.append("DNI", DataLogin.DNI);
-      form.append("password", DataLogin.password);
+      const Login = JSON.stringify({
+        dni: DataLogin.DNI,
+        password: DataLogin.Password
+      }) 
 
       const data = {
         method: "POST",
-        body: form,
+        header: {"content-type": "application/json" },
+        body: Login,
       };
 
       const res = await fetch("http://localhost:8080/Iniciarsesion", data);
@@ -48,7 +50,7 @@ function Login() {
         </div>
         <div className="contraseña">
           <h2>Contraseña</h2>
-          <input onChange={(e) => setDataLogin({ ...DataLogin, password: e.target.value })} type="password" placeholder="Contraseña" />
+          <input onChange={(e) => setDataLogin({ ...DataLogin, Password: e.target.value })} type="password" placeholder="Contraseña" />
         </div>
         <input type="button" value="Login" onClick={LoginUser} />
         <div className="register">

@@ -7,13 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func EliminarImagen(c *gin.Context) {
-	id := c.Request.FormValue("id")
+func EliminarAsset(c *gin.Context) {
+	id := c.Request.FormValue("ID")
 
 	db := database.GetDB()
-	var imagen models.Imagen
+	var Asset models.Asset
 
-	db.Delete(&imagen, id)
+	db.Delete(&Asset, id)
 
 	c.JSON(200, gin.H{
 		"success": true,

@@ -19,14 +19,14 @@ function inventario_cuerpo() {
     const ObtenerTodosLosActivos = async () => {
         try {
 
-            const req = await fetch(path + "ObtenerImagenes");
+            const req = await fetch(path + "ObtenerActivos");
             const res = await req.json();
 
             if (res?.error) {
                 throw new Error(res.error);
             }
-
-
+            
+            setActivos(res);
 
         } catch (e) {
             console.log(e);
@@ -48,8 +48,9 @@ function inventario_cuerpo() {
             const res = await req.json();
 
             if (res?.error) {
-                throw new error(res.error);
+                throw new Error(res.error);
             }
+            
 
             await ObtenerTodosLosActivos();
 
@@ -75,10 +76,10 @@ function inventario_cuerpo() {
                         {
                             Activos.map(item => (
                                 <tr key={item.ID}>
-                                    <td>{item.nombre}</td>
-                                    <td>{item.modelo}</td>
-                                    <td>{item.marca}</td>
-                                    <td>{item.serial}</td>
+                                    <td>{item.Nombre}</td>
+                                    <td>{item.Provider?.Serial}</td>
+                                    <td>{item.Provider?.Models}</td>
+                                    <td>{item.Provider?.Brand}</td>
                                     <td><input type="button" value="Eliminar" onClick={() => EliminarActivo(item.ID)} /></td>
                                 </tr>
                             ))

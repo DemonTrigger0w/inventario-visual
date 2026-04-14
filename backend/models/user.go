@@ -8,6 +8,6 @@ type User struct {
 	Firstname string
 	Lastname  string
 	Password  string
-	AreaID    uint
-	Area      Area
+	Area      Area `json:"area" gorm:"foreignKey:AreaID"`
+	AreaID    uint `json:"area_id"`
 }

@@ -1,50 +1,52 @@
-# actualizacion v0.0.3 (alpha) 
+# Actualización v0.0.4 (Alpha)
 
-- se corrigieron errores en el css 
-- se optimizo el guardado de activos
-- modificaciones en el registro, login y inventario_new
+- optimizacion en el login y register
+- mejoras en la estructura de la base de datos
+- agregado el eliminar asset y modificado el eliminar imagen
+- se agrego una ruta para obtener activos
 
-## errores conocidos
 
-- la ruta de obtener imagenes no funciona correctamente
+## Errores Conocidos
 
-# ejecucion 
+- no e encontrado
 
-requisitos
-- go (latest)
-- nodejs (latest)
-- C compiler (recomiendo usar el tdm-gcc)
+# Ejecución
 
-## dependencias
+## Requisitos
+- Go (latest)
+- Node.js (latest)
+- C Compiler (se recomienda usar TDM-GCC)
 
-primero debemos entrar la carpeta donde clonaste el proyecto alli abriras una terminal.
-una vez abierta usaras cd para moverte entre los directores
+## Dependencias
 
-ubica tu terminal en la carpeta del frontend aqui ejecuta el siguiente comando:
+Primero, accede a la carpeta donde clonaste el proyecto y abre una terminal.
 
+### Frontend
+Ubica tu terminal en la carpeta del frontend (`frontend/inventario_visual`) y ejecuta el siguiente comando:
+
+```bash
+npm install
 ```
-npm i
-```
 
-> esto instala todas las dependencias de la parte del frontend.
+> Esto instalará todas las dependencias del frontend.
 
-para ejecutar el frontend debes de ejecutar 
+Para ejecutar el frontend, utiliza:
 
-```
+```bash
 npm run dev
 ```
 
-una vez hayas intalado las dependencias del frontend y probado que el frontend funciona.
-ubicaras la terminal en la carpeta del backend.
-estando en la carpeta del backend ejecutaras el siguiente comando en la terminal.
+### Backend
+Una vez instaladas las dependencias del frontend, ubica la terminal en la carpeta del backend.
+Dentro de la carpeta `backend`, ejecuta el siguiente comando:
 
-```
+```bash
 go run main.go
 ```
 
-esto instalara todas las dependencias ademas que tambien ejecutara el proyecto 
+Esto instalará las dependencias necesarias y ejecutará el servidor.
 
-## pasos a futuro:
+## Pasos a Futuro
 
-- incorporar un sistema de busqueda en el inventario
-- mejorar el estilo css
+- Incorporar un sistema de búsqueda en el inventario.
+- Mejorar el diseño y los estilos CSS.
