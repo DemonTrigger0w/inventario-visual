@@ -9,31 +9,44 @@ import (
 
 func Guardarinventario(c *gin.Context) {
 	db := database.GetDB()
-	nombre := c.Request.FormValue("nombre")
-	serial := c.Request.FormValue("serial")
-	modelo := c.Request.FormValue("modelo")
-	marca := c.Request.FormValue("marca")
-	estado := c.Request.FormValue("estado")
-	color := c.Request.FormValue("color")
-	descripcion := c.Request.FormValue("descripcion")
+
+	type saveactive struct {
+		Nombre      string `json:"nombre"`
+		Serial      string `json:"serial"`
+		Modelo      string `json:"modelo"`
+		Marca       string `json:"marca"`
+		Estado      string `json:"estado"`
+		Color       string `json:"color"`
+		Descripcion string `json:"descripcion"`
+	}
+
+	var data saveactive
+
+	err := c.ShouldBindJSON(&data)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "error al obtener la informacion",
+		})
+		return
+	}
 
 	Asset := models.Asset{
-		Name:        nombre,
-		Description: descripcion,
+		Name:        data.Nombre,
+		Description: data.Descripcion,
 
 		Status: models.Status{
-			Name: estado,
+			Name: data.Estado,
 		},
 
 		Provider: models.Provider{
-			Serial: serial,
-			Brand:  marca,
-			Models: modelo,
-			Color:  color,
+			Serial: data.Serial,
+			Brand:  data.Marca,
+			Models: data.Modelo,
+			Color:  data.Color,
 		},
 	}
 
-	err := db.Create(&Asset).Error
+	err = db.Create(&Asset).Error
 	if err != nil {
 		c.JSON(400, gin.H{"error": "activo no guardado"})
 		return

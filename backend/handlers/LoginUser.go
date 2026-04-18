@@ -4,7 +4,6 @@ import (
 	"Inventario_Visual/database"
 	"Inventario_Visual/models"
 	"Inventario_Visual/utils"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
@@ -26,8 +25,6 @@ func LoginUser(c *gin.Context) {
 
 	if req.DNI == "" || req.Password == "" {
 		c.JSON(400, gin.H{"error": "Faltan datos"})
-		fmt.Println(req.DNI)
-		fmt.Println(req.Password)
 		return
 	}
 
@@ -35,7 +32,7 @@ func LoginUser(c *gin.Context) {
 
 	db := database.GetDB()
 
-	err = db.Where("DNI = ?", req.DNI).First(&User).Error
+	err = db.Where("DNI = ?", req.DNI).Find(&User).Error
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "usuario no encontrado",

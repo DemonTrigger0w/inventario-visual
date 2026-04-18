@@ -13,7 +13,11 @@ func EliminarAsset(c *gin.Context) {
 	db := database.GetDB()
 	var Asset models.Asset
 
-	db.Delete(&Asset, id)
+	if db.Delete(&Asset, id).Error != nil {
+		c.JSON(400, gin.H{
+			"error": "error al eliminar el activo",
+		})
+	}
 
 	c.JSON(200, gin.H{
 		"success": true,

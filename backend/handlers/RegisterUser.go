@@ -4,7 +4,6 @@ import (
 	"Inventario_Visual/database"
 	"Inventario_Visual/models"
 	"Inventario_Visual/utils"
-	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -25,7 +24,6 @@ func RegisterUser(c *gin.Context) {
 	err := c.ShouldBindJSON(&data)
 	if err != nil {
 		c.JSON(400, gin.H{"error": "error al obtener la informacion"})
-		fmt.Println(err)
 		return
 	}
 

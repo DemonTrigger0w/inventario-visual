@@ -7,7 +7,22 @@ function inventario_cuerpo() {
     const navigate = useNavigate();
 
     const [Activos, setActivos] = useState([]);
+    const [showall, setshowall] = useState(false)
 
+    const columnas = [
+        
+        { label: "Nombre",      extra: false, path: (item) => item.name},
+        { label: "Serial",      extra: false, path: (item) => item.provider?.serial },
+        { label: "Modelo",      extra: false, path: (item) => item.provider?.models },
+        { label: "Marca",       extra: false, path: (item) => item.provider?.brand },
+        // esto solo se ve si showall es igual a true
+        { label: "Descripción", extra: true,  path: (item) => item.description || "N/A" },
+        { label: "Área",        extra: true,  path: (item) => item.area?.name || "N/A" },
+        { label: "Estado",      extra: true,  path: (item) => item.status?.name || "N/A" },
+        { label: "Color",       extra: true,  path: (item) => item.provider?.color || "N/A"},
+    ]
+
+    const columnasVisibles = columnas.filter(col => !col.extra || showall);
     let path = "http://localhost:8080/"
 
     useEffect(() => {
@@ -51,7 +66,6 @@ function inventario_cuerpo() {
                 throw new Error(res.error);
             }
             
-
             await ObtenerTodosLosActivos();
 
         } catch (e) {
@@ -62,34 +76,36 @@ function inventario_cuerpo() {
 
     return (
         <>
+        <div className="container-initial">
             <div className="container">
                 <table>
                     <thead>
-                        <tr>
-                            <td>nombre</td>
-                            <td>serial</td>
-                            <td>modelo</td>
-                            <td>marca</td>
+                         <tr>
+                            {columnasVisibles.map(col => (
+                                <th key={col.label}>{col.label}</th>
+                            ))}
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            Activos.map(item => (
-                                <tr key={item.ID}>
-                                    <td>{item.Nombre}</td>
-                                    <td>{item.Provider?.Serial}</td>
-                                    <td>{item.Provider?.Models}</td>
-                                    <td>{item.Provider?.Brand}</td>
-                                    <td><input type="button" value="Eliminar" onClick={() => EliminarActivo(item.ID)} /></td>
-                                </tr>
-                            ))
-                        }
+                       {Activos.map(item => (
+                        <tr key={item.ID}>
+                            {columnasVisibles.map(col => (
+                                <td key={col.label}>{col.path(item)}</td>
+                            ))}
+                            <td>
+                                <button className="deleteactive" onClick={() => EliminarActivo( item.ID )}>Eliminar</button>
+                            </td>
+                        </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
-            <div>
-                <input type="button" value="Agregar Activo" onClick={() => navigate("/CrearActivo")} />
+            <div className="Agregar-info">
+                <input className="btn-primario" type="button" value="Agregar Activo" onClick={() => navigate("/CrearActivo")} />
+                <input className="btn-secundario" type="button" value={showall ? "Menos info": "Mas info"} onClick={() => setshowall(!showall)}  />
             </div>
+        </div>
         </>
     )
 }

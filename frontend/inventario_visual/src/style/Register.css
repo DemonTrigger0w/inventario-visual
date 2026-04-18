@@ -17,18 +17,3 @@
     flex-direction: row;
     justify-content: center;
 }
-
-input[type="text"],
-input[type="password"] {
-    border: 2px solid grey;
-    border-radius: 5px;
-    margin: 10px;
-}
-
-input[type="button"] {
-    padding: 1rem;
-    background: rgb(175, 180, 175);
-    border: 2px;
-    border-radius: 5px;
-    cursor: pointer;
-}

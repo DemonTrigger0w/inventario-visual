@@ -1,0 +1,139 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Roboto;
+    margin: 0;
+    padding: 0;
+    background: rgb(233, 233, 233)
+}
+
+input[type="button"] {
+  background: rgb(175, 180, 175);
+  border: none;
+  padding: 1rem;
+  width: 100%;
+  font-weight: bolder;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1rem;
+  cursor: pointer;
+  margin: 2rem auto;
+}
+
+input[type="button"]:hover, input[type="button"] {
+  transition: ease 500ms;
+}
+
+input[type="button"]:hover {
+  background: grey;
+  color: white;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 1rem;
+    border: 2px solid grey;
+    border-radius: 5px;
+    margin: 0 10px 0 10px ;
+    width: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    /* Crea el efecto de filas separadas */
+    background-color: transparent;
+}
+
+thead tr {
+    background-color: transparent;
+}
+
+thead td {
+    color: var(--gris-oscuro);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    letter-spacing: 1px;
+}
+
+tbody tr {
+    background-color: var(--blanco-puro);
+    box-shadow: 0 4px 6px var(--sombra);
+    /* El sombreado que pediste */
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+}
+
+tbody tr:hover {
+    transform: translateY(-3px);
+    /* Efecto sutil al pasar el mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+td {
+    padding: 15px 20px;
+    color: #333;
+    border: none;
+}
+
+/* Bordes redondeados para las filas */
+tbody tr td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+tbody tr td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1.5rem;
+  height: fit-content;
+  border: 1px solid lightgray;
+  box-shadow: 0 0 5px rgb(129, 127, 127);
+  border-radius: 5px;
+
+}
+
+form h3 {
+  border-bottom: 3px solid gray;
+  width: 100%;
+}
+
+table{
+  padding: 2%;
+  width: 60%;
+  height: fit-content;
+  border: 2px solid gray;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgb(180, 176, 176);
+
+}
+
+input[type="checkbox"]{
+  background: green;
+  border-radius: 5px;
+
+}
+
+

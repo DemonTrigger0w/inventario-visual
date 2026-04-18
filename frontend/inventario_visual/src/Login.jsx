@@ -19,7 +19,7 @@ function Login() {
 
       const data = {
         method: "POST",
-        header: {"content-type": "application/json" },
+        header: { "content-type": "application/json" },
         body: Login,
       };
 
@@ -32,8 +32,6 @@ function Login() {
 
       localStorage.setItem(DataLogin.DNI + "Token", req.token)
       navigate("/inventario_new");
-
-
 
     } catch (error) {
       console.error(error);

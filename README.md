@@ -1,9 +1,8 @@
-# Actualización v0.0.4 (Alpha)
+# Actualización v0.0.5v (Alpha)
 
-- optimizacion en el login y register
-- mejoras en la estructura de la base de datos
-- agregado el eliminar asset y modificado el eliminar imagen
-- se agrego una ruta para obtener activos
+- mejora en la estructura de la base de datos
+- correciones en el css del inventario
+- mejoras en el inventario_new
 
 
 ## Errores Conocidos

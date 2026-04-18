@@ -6,31 +6,33 @@ import "./style/CrearActivo.css";
 function CrearActivo() {
     const navigate = useNavigate();
     const [Activo, setActivo] = useState({
-        nombre: "",
-        serial: "",
-        modelo: "",
-        marca: "",
-        estado: "",
-        color: "",
-        descripcion: ""
+        Nombre: "",
+        Serial: "",
+        Modelo: "",
+        Marca: "",
+        Estado: "",
+        Color: "",
+        Descripcion: ""
     })
 
     const path = "http://localhost:8080/"
 
     const Enviardatos = async () => {
         try {
-            const form = new FormData();
-            form.append("nombre", Activo.nombre);
-            form.append("serial", Activo.serial);
-            form.append("modelo", Activo.modelo);
-            form.append("marca", Activo.marca);
-            form.append("estado", Activo.estado);
-            form.append("color", Activo.color);
-            form.append("descripcion", Activo.descripcion);
+            const savedata = JSON.stringify({
+                nombre: Activo.Nombre,
+                serial: Activo.Serial,
+                modelo: Activo.Modelo,
+                marca: Activo.Marca,
+                estado: Activo.Estado,
+                color: Activo.Color,
+                descripcion: Activo.Descripcion,
+            })
 
             const data = {
                 method: "POST",
-                body: form
+                header: {"content-type": "application/json"},
+                body: savedata
             }
 
             const req = await fetch(path + "Guardarinventario", data);
@@ -54,35 +56,35 @@ function CrearActivo() {
             <div className="nombre-serial">
                 <div className="nombre">
                     <h2>nombre</h2>
-                    <input type="text" placeholder="nombre" onChange={(e) => setActivo({ ...Activo, nombre: e.target.value })} />
+                    <input type="text" placeholder="nombre" onChange={(e) => setActivo({ ...Activo, Nombre: e.target.value })} />
                 </div>
                 <div className="seria">
                     <h2>serial</h2>
-                    <input type="text" placeholder="serial" onChange={(e) => setActivo({ ...Activo, serial: e.target.value })} />
+                    <input type="text" placeholder="serial" onChange={(e) => setActivo({ ...Activo, Serial: e.target.value })} />
                 </div>
             </div>
             <div className="modelo-marca">
                 <div className="modelo">
                     <h2>modelo</h2>
-                    <input type="text" name="modelo" id="modelo" placeholder="modelo" onChange={(e) => setActivo({ ...Activo, modelo: e.target.value })} />
+                    <input type="text" name="modelo" id="modelo" placeholder="modelo" onChange={(e) => setActivo({ ...Activo, Modelo: e.target.value })} />
                 </div>
                 <div>
                     <h2>marca</h2>
-                    <input type="text" name="marca" id="marca" placeholder="marca" onChange={(e) => setActivo({ ...Activo, marca: e.target.value })} />
+                    <input type="text" name="marca" id="marca" placeholder="marca" onChange={(e) => setActivo({ ...Activo, Marca: e.target.value })} />
                 </div>
                 <div>
                     <h2>Estado</h2>
-                    <input type="text" name="estado" placeholder="bueno/malo" onChange={(e) => setActivo({ ...Activo, estado: e.target.value })} />
+                    <input type="text" name="estado" placeholder="bueno/malo" onChange={(e) => setActivo({ ...Activo, Estado: e.target.value })} />
                 </div>
             </div>
             <div className="color-descripcion">
                 <div>
                     <h2>color</h2>
-                    <input type="text" name="color" id="color" placeholder="color" onChange={(e) => setActivo({ ...Activo, color: e.target.value })} />
+                    <input type="text" name="color" id="color" placeholder="color" onChange={(e) => setActivo({ ...Activo, Color: e.target.value })} />
                 </div>
                 <div>
                     <h2>descripcion</h2>
-                    <input type="text" name="descripcion" id="descripcion" placeholder="descripcion" onChange={(e) => setActivo({ ...Activo, descripcion: e.target.value })} />
+                    <input type="text" name="descripcion" id="descripcion" placeholder="descripcion" onChange={(e) => setActivo({ ...Activo, Descripcion: e.target.value })} />
                 </div>
             </div>
             <input type="button" value="Guardar" onClick={async () => await Enviardatos()} />
