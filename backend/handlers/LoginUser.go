@@ -3,7 +3,6 @@ package handlers
 import (
 	"Inventario_Visual/database"
 	"Inventario_Visual/models"
-	"Inventario_Visual/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -29,20 +28,28 @@ func LoginUser(c *gin.Context) {
 	}
 
 	var User models.User
-
 	db := database.GetDB()
 
-	err = db.Where("DNI = ?", req.DNI).Find(&User).Error
+	err = db.Where("DNI = ?", req.DNI).First(&User).Error
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "usuario no encontrado",
 		})
-	}
-
-	if utils.CheckPasswordHash(req.Password, User.Password) != true {
-		c.JSON(401, gin.H{"error": "Contraseña incorrecta"})
 		return
 	}
 
-	c.JSON(200, gin.H{"success": "Usuario logeado exitosamente"})
+	if CheckPasswordHash(req.Password, User.Password) != true {
+		c.JSON(400, gin.H{"error": "Contraseña incorrecta"})
+		return
+	}
+
+	tokenstring, err := Generatetoken(req.DNI)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": "error al generar el token",
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{"success": "Usuario logeado exitosamente", "token": tokenstring})
 }

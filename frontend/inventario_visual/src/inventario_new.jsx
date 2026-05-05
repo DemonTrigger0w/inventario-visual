@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style/inventario_new.css";
 
-function inventario_cuerpo() {
+function Inventario_cuerpo() {
 
     const navigate = useNavigate();
-
     const [Activos, setActivos] = useState([]);
     const [showall, setshowall] = useState(false)
+    const [isActive, setisActive] = useState(false)
 
     const columnas = [
-        
-        { label: "Nombre",      extra: false, path: (item) => item.name},
+
+        { label: "Nombre",      extra: false, path: (item) => item.name },
         { label: "Serial",      extra: false, path: (item) => item.provider?.serial },
         { label: "Modelo",      extra: false, path: (item) => item.provider?.models },
         { label: "Marca",       extra: false, path: (item) => item.provider?.brand },
@@ -26,22 +26,25 @@ function inventario_cuerpo() {
     let path = "http://localhost:8080/"
 
     useEffect(() => {
-
         ObtenerTodosLosActivos();
-
     }, []);
 
     const ObtenerTodosLosActivos = async () => {
         try {
+          const token = localStorage.getItem("Token");
 
-            const req = await fetch(path + "ObtenerActivos");
-            const res = await req.json();
+          const data = {
+              headers: {"Authorization": `Apetitoso ${token}`}
+          };
 
-            if (res?.error) {
-                throw new Error(res.error);
-            }
-            
-            setActivos(res);
+          const req = await fetch(path + "ObtenerActivos", data);
+          const res = await req.json();
+
+          if (res?.error) {
+              throw new Error(res.error);
+          }
+
+          setActivos(res);
 
         } catch (e) {
             console.log(e);
@@ -51,11 +54,15 @@ function inventario_cuerpo() {
 
     const EliminarActivo = async (ID) => {
         try {
+            const token = localStorage.getItem("Token");
             const form = new FormData();
             form.append("ID", ID);
 
             const data = {
                 method: "DELETE",
+                headers: {
+                    "Authorization": `Apetitoso ${token}`
+                },
                 body: form
             };
 
@@ -65,7 +72,7 @@ function inventario_cuerpo() {
             if (res?.error) {
                 throw new Error(res.error);
             }
-            
+
             await ObtenerTodosLosActivos();
 
         } catch (e) {
@@ -101,13 +108,13 @@ function inventario_cuerpo() {
                     </tbody>
                 </table>
             </div>
-            <div className="Agregar-info">
+            <div className={ !isActive ? "menos-info" : "mas-info"}>
                 <input className="btn-primario" type="button" value="Agregar Activo" onClick={() => navigate("/CrearActivo")} />
-                <input className="btn-secundario" type="button" value={showall ? "Menos info": "Mas info"} onClick={() => setshowall(!showall)}  />
+                <input className="btn-secundario" type="button" value={showall ? "Menos info": "Mas info"} onClick={() => setshowall(!showall) > setisActive(!isActive)} />
             </div>
         </div>
         </>
     )
 }
 
-export default inventario_cuerpo;
+export default Inventario_cuerpo;

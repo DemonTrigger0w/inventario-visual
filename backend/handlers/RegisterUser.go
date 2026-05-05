@@ -3,7 +3,6 @@ package handlers
 import (
 	"Inventario_Visual/database"
 	"Inventario_Visual/models"
-	"Inventario_Visual/utils"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -33,7 +32,7 @@ func RegisterUser(c *gin.Context) {
 		return
 	}
 
-	password_hash, err := utils.HashPassword(data.Password)
+	password_hash, err := HashPassword(data.Password)
 	if err != nil {
 		c.JSON(400, gin.H{"error": "Error al encriptar la contraseña"})
 		return

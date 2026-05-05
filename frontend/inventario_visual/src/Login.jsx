@@ -12,6 +12,7 @@ function Login() {
 
   const LoginUser = async () => {
     try {
+      
       const Login = JSON.stringify({
         dni: DataLogin.DNI,
         password: DataLogin.Password
@@ -19,7 +20,7 @@ function Login() {
 
       const data = {
         method: "POST",
-        header: { "content-type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: Login,
       };
 
@@ -30,11 +31,11 @@ function Login() {
         throw new Error(req.error);
       }
 
-      localStorage.setItem(DataLogin.DNI + "Token", req.token)
+      localStorage.setItem("Token", req.token)
       navigate("/inventario_new");
 
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      alert(e);
     }
   };
 

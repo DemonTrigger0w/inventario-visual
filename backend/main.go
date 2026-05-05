@@ -18,15 +18,19 @@ func main() {
 	config.AllowAllOrigins = true
 
 	router.Static("/uploads", "./uploads")
-	router.GET("/ObtenerImagenes", handlers.ObtenerImagenes)
-	router.GET("/ObtenerActivos", handlers.ObtenerActivos)
-	router.DELETE("/EliminarAsset", handlers.EliminarAsset)
-	router.DELETE("/EliminarImagen", handlers.EliminarImagen)
-	router.POST("/EnviarImagen", handlers.EnviarImagen)
 	router.POST("/RegistrarUsuario", handlers.RegisterUser)
 	router.POST("/Iniciarsesion", handlers.LoginUser)
-	router.POST("/Guardarinventario", handlers.Guardarinventario)
+
+	protected := router.Group("/")
+	protected.Use(handlers.AuthMiddleware())
+	{
+		protected.GET("/ObtenerImagenes", handlers.ObtenerImagenes)
+		protected.GET("/ObtenerActivos", handlers.ObtenerActivos)
+		protected.DELETE("/EliminarAsset", handlers.EliminarAsset)
+		protected.DELETE("/EliminarImagen", handlers.EliminarImagen)
+		protected.POST("/EnviarImagen", handlers.EnviarImagen)
+		protected.POST("/Guardarinventario", handlers.Guardarinventario)
+	}
 
 	router.Run()
-
 }

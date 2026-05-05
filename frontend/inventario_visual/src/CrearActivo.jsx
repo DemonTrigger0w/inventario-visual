@@ -29,9 +29,13 @@ function CrearActivo() {
                 descripcion: Activo.Descripcion,
             })
 
+            const token = localStorage.getItem("Token");
             const data = {
                 method: "POST",
-                header: {"content-type": "application/json"},
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 body: savedata
             }
 
