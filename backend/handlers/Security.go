@@ -71,7 +71,6 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		// Remove "Bearer " prefix if present
 		if len(tokenString) > 8 && tokenString[:8] == "Apetitoso " {
 			tokenString = tokenString[8:]
 		}
