@@ -61,28 +61,3 @@ func ValidateToken(tokenString string) (*token, error) {
 
 	return claims, nil
 }
-
-func AuthMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		tokenString := c.GetHeader("Authorization")
-		if tokenString == "" {
-			c.JSON(400, gin.H{"error": "El token no fue proporcionado"})
-			c.Abort()
-			return
-		}
-
-		if len(tokenString) > 8 && tokenString[:8] == "Apetitoso " {
-			tokenString = tokenString[8:]
-		}
-
-		claims, err := ValidateToken(tokenString)
-		if err != nil {
-			c.JSON(400, gin.H{"error": "El token no es valido o pudo haber expirado"})
-			c.Abort()
-			return
-		}
-
-		c.Set("dni", claims.DNI)
-		c.Next()
-	}
-}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtdecode } from "jwt-decode"
 import "./style/inventario_new.css";
 
 function Inventario_cuerpo() {
@@ -25,17 +26,16 @@ function Inventario_cuerpo() {
     const columnasVisibles = columnas.filter(col => !col.extra || showall);
     let path = "http://localhost:8080/"
 
-    useEffect(() => {
-        ObtenerTodosLosActivos();
+  useEffect(() => {
+    ValidateToken();
+    ObtenerTodosLosActivos();
+
+    const revicion = setInterval(ValidateToken, 60000);
+    return () => clearInterval(revicion);
     }, []);
 
     const ObtenerTodosLosActivos = async () => {
         try {
-          const token = localStorage.getItem("Token");
-
-          const data = {
-              headers: {"Authorization": `Apetitoso ${token}`}
-          };
 
           const req = await fetch(path + "ObtenerActivos", data);
           const res = await req.json();
@@ -52,17 +52,37 @@ function Inventario_cuerpo() {
         }
     }
 
+  const ValidateToken = async () => {
+    try {
+
+      const token = localStorage.getItem("Token")
+      if (!token) {
+        alert("el token no existe")
+        navigate("/")
+      }
+
+      const decode = jwtdecode(token)
+      const currentTime = Date.now / 1000;
+
+      if (decode.exp < currentTime) {
+        alert("el token a expirado")
+        navigate("/")
+        localStorage.removeItem("Token")
+      }
+
+    } catch (e) {
+      alert(e)
+      console.log(e)
+    }
+  }
+
     const EliminarActivo = async (ID) => {
         try {
-            const token = localStorage.getItem("Token");
             const form = new FormData();
             form.append("ID", ID);
 
             const data = {
                 method: "DELETE",
-                headers: {
-                    "Authorization": `Apetitoso ${token}`
-                },
                 body: form
             };
 
