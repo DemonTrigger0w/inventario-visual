@@ -13,7 +13,6 @@ input[type="button"] {
   background: rgb(175, 180, 175);
   border: none;
   padding: 1rem;
-  width: 100%;
   font-weight: bolder;
   border-radius: 5px;
   cursor: pointer;
@@ -48,8 +47,11 @@ table {
     background-color: transparent;
 }
 
+
 thead tr {
+    padding: 20%;
     background-color: transparent;
+
 }
 
 thead td {
@@ -73,6 +75,10 @@ tbody tr:hover {
     transform: translateY(-3px);
     /* Efecto sutil al pasar el mouse */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+th {
+    padding: 15px;
 }
 
 td {
@@ -135,5 +141,3 @@ input[type="checkbox"]{
   border-radius: 5px;
 
 }
-
-

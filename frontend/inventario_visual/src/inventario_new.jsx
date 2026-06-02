@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { jwtdecode } from "jwt-decode"
+import { jwtDecode } from "jwt-decode"
 import "./style/inventario_new.css";
 
 function Inventario_cuerpo() {
-
     const navigate = useNavigate();
     const [Activos, setActivos] = useState([]);
     const [showall, setshowall] = useState(false)
     const [isActive, setisActive] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
+    const [Activo, setActivo] = useState({
+        Nombre: "",
+        Serial: "",
+        Modelo: "",
+        Marca: "",
+        Estado: "",
+        Color: "",
+        Descripcion: ""
+    })
 
     const columnas = [
 
@@ -35,9 +44,9 @@ function Inventario_cuerpo() {
     }, []);
 
     const ObtenerTodosLosActivos = async () => {
-        try {
+      try {
 
-          const req = await fetch(path + "ObtenerActivos", data);
+          const req = await fetch(path + "ObtenerActivos");
           const res = await req.json();
 
           if (res?.error) {
@@ -59,10 +68,11 @@ function Inventario_cuerpo() {
       if (!token) {
         alert("el token no existe")
         navigate("/")
+        return;
       }
 
-      const decode = jwtdecode(token)
-      const currentTime = Date.now / 1000;
+      const decode = jwtDecode(token)
+      const currentTime = Date.now() / 1000;
 
       if (decode.exp < currentTime) {
         alert("el token a expirado")
@@ -74,6 +84,11 @@ function Inventario_cuerpo() {
       alert(e)
       console.log(e)
     }
+  }
+
+  const CerrarSesion = () => {
+    localStorage.removeItem("Token")
+    navigate("/")
   }
 
     const EliminarActivo = async (ID) => {
@@ -100,12 +115,48 @@ function Inventario_cuerpo() {
             alert(e)
         }
     }
+    const Enviardatos = async () => {
+        try {
+            const savedata = JSON.stringify({
+                nombre: Activo.Nombre,
+                serial: Activo.Serial,
+                modelo: Activo.Modelo,
+                marca: Activo.Marca,
+                estado: Activo.Estado,
+                color: Activo.Color,
+                descripcion: Activo.Descripcion,
+            })
+
+            const data = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: savedata
+            }
+
+            const req = await fetch(path + "Guardarinventario", data);
+            const res = await req.json();
+
+            if (res?.error) {
+                throw new Error(res.error);
+            }
+
+        } catch (e) {
+            console.log(e);
+            alert(e);
+        }
+
+    }
 
     return (
         <>
         <div className="container-initial">
+          <header>
+            <input className="btn-cerrar-sesion" type="button" onClick={CerrarSesion} value="Cerrar Sesión" />
+          </header>
             <div className="container">
-                <table>
+                <table className="activosxc">
                     <thead>
                          <tr>
                             {columnasVisibles.map(col => (
@@ -126,12 +177,31 @@ function Inventario_cuerpo() {
                         </tr>
                         ))}
                     </tbody>
-                </table>
+            </table>
             </div>
-            <div className={ !isActive ? "menos-info" : "mas-info"}>
-                <input className="btn-primario" type="button" value="Agregar Activo" onClick={() => navigate("/CrearActivo")} />
-                <input className="btn-secundario" type="button" value={showall ? "Menos info": "Mas info"} onClick={() => setshowall(!showall) > setisActive(!isActive)} />
+          <div className={!isActive ? "menos-info" : "mas-info"}>
+            <input className="btn-primario" type="button" value="Agregar Activo" onClick={() => setIsOpen(true)} />
+            <input className="btn-secundario" type="button" value={showall ? "Menos info": "Mas info"} onClick={() => setshowall(!showall) > setisActive(!isActive)} />
+          </div>
+          <dialog id="mydialog" open={isOpen} className='modal-ip'>
+            <div className="nombre-serial">
+            <input type="text" placeholder="nombre" onChange={(e) => setActivo({ ...Activo, Nombre: e.target.value })} />
+              <input type="text" placeholder="serial" onChange={(e) => setActivo({ ...Activo, Serial: e.target.value })} />
             </div>
+            <div className="modelo-marca">
+              <input type="text" placeholder="modelo" onChange={(e) => setActivo({ ...Activo, Modelo: e.target.value })} />
+              <input type="text" placeholder="marca" onChange={(e) => setActivo({ ...Activo, Marca: e.target.value })} />
+            </div>
+            <div className="estado-color-descripcion">
+              <input type="text" placeholder="estado" onChange={(e) => setActivo({ ...Activo, Estado: e.target.value })} />
+              <input type="text" placeholder="color" onChange={(e) => setActivo({ ...Activo, Color: e.target.value })} />
+              <input type="text" placeholder="descripción" onChange={(e) => setActivo({ ...Activo, Descripcion: e.target.value })} />
+            </div>
+            <div className="Cancelar-datos">
+              <input type="button" value="Cancelar" className="Cancelar" onClick={() => { setIsOpen(false); }} />
+              <input type="button" value="Enviar datos" className="datos" onClick={() => { Enviardatos(); }} />
+            </div>
+          </dialog>
         </div>
         </>
     )

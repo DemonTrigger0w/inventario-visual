@@ -21,7 +21,7 @@
     bottom: 1%;
     width: 562px;
     height: 200px;
-    
+
 }
 
 .mas-info {
@@ -41,13 +41,53 @@
     color: var(--gris-oscuro);
     padding: 6px 12px;
     border-radius: 4px;
-    cursor: pointer;
+    width: 100%;
     transition: all 0.3s ease;
 }
 
 .btn-primario:hover, .btn-secundario:hover, .deleteactive:hover {
     background-color: #ffeded;
-    /* Un tono rojizo muy suave al borrar */
     color: #d9534f;
     border-color: #d9534f;
+}
+
+.btn-cerrar-sesion {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+}
+
+.modal-ip{
+    position: absolute;
+    top: 5%;
+    right: 20%;
+    left: 20%;
+    flex-direction: column;
+    padding: 5rem;
+}
+
+.nombre-serial {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 20px 0;
+}
+
+.modelo-marca {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 20px 0;
+}
+
+.estado-color-descripcion {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 20px 0;
+}
+
+.Cancelar-datos {
+    text-align: center;
+}
+
+.Cancelar, .datos {
+    width: 100%;
 }

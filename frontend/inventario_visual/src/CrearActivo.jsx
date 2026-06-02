@@ -29,12 +29,10 @@ function CrearActivo() {
                 descripcion: Activo.Descripcion,
             })
 
-            const token = localStorage.getItem("Token");
             const data = {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
                 },
                 body: savedata
             }
@@ -57,16 +55,16 @@ function CrearActivo() {
 
     return (
         <div className="container">
-            <div className="nombre-serial">
+              <div className="nombre-serial">
                 <div className="nombre">
-                    <h2>nombre</h2>
-                    <input type="text" placeholder="nombre" onChange={(e) => setActivo({ ...Activo, Nombre: e.target.value })} />
+                  <h2>nombre</h2>
+                  <input type="text" placeholder="nombre" onChange={(e) => setActivo({ ...Activo, Nombre: e.target.value })} />
                 </div>
                 <div className="seria">
-                    <h2>serial</h2>
-                    <input type="text" placeholder="serial" onChange={(e) => setActivo({ ...Activo, Serial: e.target.value })} />
+                  <h2>serial</h2>
+                  <input type="text" placeholder="serial" onChange={(e) => setActivo({ ...Activo, Serial: e.target.value })} />
                 </div>
-            </div>
+              </div>
             <div className="modelo-marca">
                 <div className="modelo">
                     <h2>modelo</h2>
